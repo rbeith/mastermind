@@ -48,8 +48,11 @@ class Computer
         @guess.each_with_index do |item, index|
             if item == @code[index]
                 @new_guess[index] = item
+            elsif @code.include?(item) && @code.count(item) > @new_guess.count(item)
+                @new_guess.push(item)
             elsif item != @code[index]
                 @new_guess[index] = @code_pegs.shuffle.pop
+            else @new_guess.shuffle
             end
             @guess = @new_guess
         end        

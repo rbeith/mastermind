@@ -40,11 +40,16 @@ class Game
     def check_clues(guess)
         @guess = guess
         @clues = []
+        @guess.map! do |item|
+            if @code.include?(item) && @guess.count(item) > @code.count(item)
+                item = 0
+            else item = item
+            end 
+        end
         @guess.each_with_index do |item, index|
             if item == @code[index]
                 @clues.push(@key_pegs[1])
-            elsif
-                @code.include?(item) && @guess.count(item) <= @code.count(item)
+            elsif @code.include?(item) && @guess.count(item) <= @code.count(item)
                 @clues.push(@key_pegs[0])
             else @clues.push("◌")
             end

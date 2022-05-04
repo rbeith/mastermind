@@ -1,14 +1,12 @@
 class Game
     attr_reader :clues
-    attr_accessor :code
-    
-    @code
-    @clues
     
     def initialize
         @key_pegs = ["ʘ", "●"]        
         intro
     end
+    
+    private
     
     def intro
         puts "\nMastermind is a game where a Code Breaker tries to guess an Code Maker's" 
@@ -30,12 +28,14 @@ class Game
         end
     end
     
+    
     def start_game(maker, breaker)
         @breaker = breaker
         @maker = maker
         @code = @maker.make_code
         play_game
     end
+
 
     def check_clues(guess)
         @guess = guess
@@ -73,7 +73,7 @@ class Game
     end 
 
     def tie_alert
-        puts "\nThe code was #{@code.join(" ")}."
+        puts "\nThe code was #{@code.join(" ").bold.red}."
         puts "\nYou were no match for the codeman, man!"
     end
     
@@ -85,7 +85,7 @@ class Game
             elsif @breaker.instance_of?(Computer) && i == 0
               @guess = @breaker.first_guess(@code)
             elsif @breaker.instance_of?(Computer) && i > 0
-              @guess = @breaker.next_guess
+              @guess = @breaker.next_guess(@clues)
             end
             if check_win(@guess) == true
                 win_alert
@@ -100,6 +100,6 @@ class Game
         end
         if check_win(@guess) == false
             tie_alert
-    end
+        end
     end
 end

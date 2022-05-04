@@ -1,7 +1,17 @@
 class Human    
-    attr_accessor :guess, :code
-
+    attr_reader :guess, :code
+    
     def make_code
+        @code = self.code
+    end
+
+    def make_guess
+        @guess = self.guess
+    end
+
+    private
+
+    def code
         puts "Enter four digits to create your code:"
         @code = gets.chomp
         if @code.length != 4
@@ -11,7 +21,7 @@ class Human
         @code = @code.chars.map {|item| item.to_i}
     end
 
-    def make_guess
+    def guess
         puts "\nEnter your guess:\n"
         @guess = gets.chomp
         if @guess.length !=4
